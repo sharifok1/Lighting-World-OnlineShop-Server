@@ -72,7 +72,7 @@ run().catch(console.dir);
 
 
 app.get('/' , (req, res)=>{
-  res.json('lighting world portal server is running');
+  res.json('lighting world server is running');
 })
 
 app.listen(port, ()=> {

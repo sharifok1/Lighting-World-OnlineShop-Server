@@ -16,6 +16,7 @@ async function run(){
     const database = client.db('lightingWorld');
     const allProducts = database.collection('Allproducts');
     const userDataCollection = database.collection('users');
+    const userReviewCollection = database.collection('reviews');
     console.log('database successfully coneted')
    //Method---------------------API
  //POST for appointmentdata ---Method---------------------API
@@ -62,7 +63,13 @@ async function run(){
     }
     res.json({admin: isAdmin})
   })
-
+  //Post method --------------------post user review
+  app.post('/review', async(req, res)=>{
+    const review = req.body;
+    const result = await userReviewCollection.insertOne(review);
+    console.log(result);
+    res.json(result);
+  })
 
   } finally {
     // await client.close();

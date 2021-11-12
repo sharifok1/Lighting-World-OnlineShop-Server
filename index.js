@@ -70,6 +70,13 @@ async function run(){
     console.log(result);
     res.json(result);
   })
+  //get method--------------------------------------get review
+  app.get('/review', async(req, res)=>{
+    const review = userReviewCollection.find({})
+    const result = await review.toArray();
+    res.send(result)
+    console.log('find review',result);
+  })
 
   } finally {
     // await client.close();

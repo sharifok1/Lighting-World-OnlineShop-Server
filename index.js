@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient } = require("mongodb");
+const ObjectId = require('mongodb').ObjectId
 const cors = require('cors');
 const app = express();
 require('dotenv').config();
@@ -77,6 +78,21 @@ async function run(){
     res.send(result)
     console.log('find review',result);
   })
+  //get method--------------------------------------get all product
+  app.get('/allProducts', async(req, res)=>{
+    const allProduct = allProducts.find({})
+    const result = await allProduct.toArray();
+    res.send(result);
+    
+  })
+   //delet API ----------------------------delete
+   app.delete('/allProducts/:id', async (req,res)=>{
+    const id = req.params.id;
+    const query = {_id:ObjectId(id)};
+    const result = await allProducts.deleteOne(query);
+    console.log('deleted id', result);
+    res.json(result);
+})
 
   } finally {
     // await client.close();

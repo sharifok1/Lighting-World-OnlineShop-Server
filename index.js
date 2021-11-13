@@ -18,6 +18,7 @@ async function run(){
     const allProducts = database.collection('Allproducts');
     const userDataCollection = database.collection('users');
     const userReviewCollection = database.collection('reviews');
+    const userOrderCollection = database.collection('UserOrders');
     console.log('database successfully coneted')
    //Method---------------------API
  //POST for appointmentdata ---Method---------------------API
@@ -82,15 +83,36 @@ async function run(){
   app.get('/allProducts', async(req, res)=>{
     const allProduct = allProducts.find({})
     const result = await allProduct.toArray();
-    res.send(result);
-    
+    res.send(result); 
   })
-   //delet API ----------------------------delete
+   //delet API -----------------------------------------delete
    app.delete('/allProducts/:id', async (req,res)=>{
     const id = req.params.id;
     const query = {_id:ObjectId(id)};
     const result = await allProducts.deleteOne(query);
     console.log('deleted id', result);
+    res.json(result);
+})
+//Post method -----------------------------------------post user order
+app.post('/userOrder', async(req, res)=>{
+  const order = req.body;
+  const result = await userOrderCollection.insertOne(order);
+  console.log(result);
+  res.json(result);
+})
+//get method--------------------------------------get all Order
+app.get('/userOrder', async(req, res)=>{
+  const allOrder = userOrderCollection.find({})
+  const result = await allOrder.toArray();
+  res.send(result); 
+})
+  //delet API -----------------------------------------delete order
+  app.delete('/userOrder/:id', async (req,res)=>{
+    const id = req.params.id;
+    const query = {_id:ObjectId(id)};
+    const result = await userOrderCollection.deleteOne(query);
+    console.log('deleted id', result);
+    console.log('hit the delete method')
     res.json(result);
 })
 

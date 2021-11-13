@@ -19,7 +19,7 @@ async function run(){
     const userDataCollection = database.collection('users');
     const userReviewCollection = database.collection('reviews');
     const userOrderCollection = database.collection('UserOrders');
-    console.log('database successfully coneted')
+    console.log('Mongodb successfully coneted')
    //Method---------------------API
  //POST for appointmentdata ---Method---------------------API
  app.post('/allProducts', async(req,res)=>{
@@ -114,6 +114,13 @@ app.get('/userOrder', async(req, res)=>{
     console.log('deleted id', result);
     console.log('hit the delete method')
     res.json(result);
+})
+//update
+app.put('/order/status', async(req,res)=>{
+  const id = req.body.id;
+  const status = req.body.status;
+  const updateStatus = await userOrderCollection.updateOne({_id:ObjectId(id)},{$set:{orderStatus:status}},{upsert: true});
+  res.json(updateStatus);
 })
 
   } finally {

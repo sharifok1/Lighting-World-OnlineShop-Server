@@ -131,7 +131,7 @@ run().catch(console.dir);
 
 
 app.get('/' , (req, res)=>{
-  res.json('lighting world server is running');
+  res.json('Hit from lighting world server');
 })
 
 app.listen(port, ()=> {

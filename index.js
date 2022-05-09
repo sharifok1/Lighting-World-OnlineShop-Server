@@ -45,6 +45,12 @@ async function run(){
     res.json(result)
     console.log(result);
   })
+  app.get('/users', async(req, res)=>{
+    const users = userDataCollection.find({})
+    const result = await users.toArray();
+    res.send(result)
+    console.log('find review',result);
+  })
   //update method for admin----------------admin api
     app.put('/user/admin', async(req, res)=>{
     const user = req.body;
@@ -115,7 +121,7 @@ app.get('/userOrder', async(req, res)=>{
     console.log('hit the delete method')
     res.json(result);
 })
-//update
+//Put API ------------------------------------------update order/ status
 app.put('/order/status', async(req,res)=>{
   const id = req.body.id;
   const status = req.body.status;
